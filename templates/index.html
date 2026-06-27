@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Manufacturing Machines Efficiency Predication</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    
+    <div class="container">
+    <div class="page-header">
+        <div class="page-header-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+        </div>
+        <div>
+        <h1>Smart Manufacturing Machines Efficiency Prediction</h1>
+        <p class="page-subtitle">Real-time ML inference · Production monitoring</p>
+        </div>
+    </div>
+
+    <form method="post">
+        <p class="form-section-label">Machine Parameters</p>
+        <div class="form-grid">
+        {% for feature in features %}
+            <div class="field">
+            {% if feature == "Operation_Mode_Labels" %}
+                <label for="Operation_Mode_Labels">Operation mode</label>
+                <div class="select-wrap">
+                <select name="Operation_Mode_Labels" id="Operation_Mode_Labels" required>
+                    <option value="Active">Active</option>
+                    <option value="Idle">Idle</option>
+                    <option value="Maintenance">Maintenance</option>
+                </select>
+                </div>
+            {% else %}
+                <label for="{{ feature }}">{{ feature | replace("_", " ") }}</label>
+                <input type="text" name="{{ feature }}" id="{{ feature }}" required>
+            {% endif %}
+            </div>
+        {% endfor %}
+        </div>
+
+        <button type="submit" class="btn-predict">
+        <svg viewBox="0 0 24 24"><path d="m5 12 7-7 7 7M12 5v14"/></svg>
+        Run prediction
+        </button>
+
+        {% if predication %}
+        <div class="result-card">
+        <div class="result-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div>
+            <p class="result-label">Predicted efficiency</p>
+            <h2>{{ predication }}</h2>
+        </div>
+        </div>
+        {% endif %}
+    </form>
+</div>
+</body>
+</html>
