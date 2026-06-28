@@ -7,6 +7,16 @@ pipeline {
     }
 
     stages {
+        stage('Check Docker') {
+                steps {
+                    sh '''
+                    whoami
+                    id
+                    docker --version
+                    docker ps
+                    '''
+                }
+            }
         stage('Checkout Github') {
             steps {
                 echo 'Checking out code from GitHub...'
