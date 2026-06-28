@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_HUB_REPO = "himanshu863/gitops-project"
-        DOCKER_HUB_CREDENTIALS_ID = "mlops-9"
+        DOCKER_HUB_CREDENTIALS_ID = "dockerhub-token"
     }
 
     stages {
