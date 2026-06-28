@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout Github') {
             steps {
                 echo 'Checking out code from GitHub...'
-		        checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'gitub-token', url: 'gh repo clone HimanshuB0810/Machines_Efficiency_Predication_MLOPS-9']])
+		        checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'gitub-token', url: 'https://github.com/HimanshuB0810/Machines_Efficiency_Predication_MLOPS-9.git']])
 		    }
         }        
         stage('Build Docker Image') {
