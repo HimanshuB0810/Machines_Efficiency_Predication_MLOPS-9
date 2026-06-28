@@ -14,29 +14,29 @@ pipeline {
             }
         }
 
-        // stage('Build Docker Image') {
-        //     steps {
-        //         script {
-        //             echo 'Building Docker image...'
-        //             dockerImage = docker.build("${DOCKER_HUB_REPO}:latest")
-        //         }
-        //     }
-        // }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    echo 'Building Docker image...'
+                    dockerImage = docker.build("${DOCKER_HUB_REPO}:latest")
+                }
+            }
+        }
 
-        // stage('Push Image to DockerHub') {
-        //     steps {
-        //         script {
-        //             echo 'Pushing Docker image to DockerHub...'
+        stage('Push Image to DockerHub') {
+            steps {
+                script {
+                    echo 'Pushing Docker image to DockerHub...'
 
-        //             docker.withRegistry(
-        //                 'https://registry.hub.docker.com',
-        //                 "${DOCKER_HUB_CREDENTIALS_ID}"
-        //             ) {
-        //                 dockerImage.push("latest")
-        //             }
-        //         }
-        //     }
-        // }
+                    docker.withRegistry(
+                        'https://registry.hub.docker.com',
+                        "${DOCKER_HUB_CREDENTIALS_ID}"
+                    ) {
+                        dockerImage.push("latest")
+                    }
+                }
+            }
+        }
 
         stage('Install Kubectl & ArgoCD CLI') {
             steps {
