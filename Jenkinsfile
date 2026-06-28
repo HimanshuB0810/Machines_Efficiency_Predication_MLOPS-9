@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment {
+        DOCKER_HUB_REPO = "himanshu863/gitops-project"
+        DOCKER_HUB_CREDENTIALS_ID = "mlops-9"
+    }
     stages {
         stage('Checkout Github') {
             steps {
@@ -9,12 +13,20 @@ pipeline {
         }        
         stage('Build Docker Image') {
             steps {
-                echo 'Building Docker image...'
+                scripts{
+                    echo 'Building Docker image...'
+                    dockerImage = docker.build("${DOCKER_HUB_REPO}:latest")
+                }
             }
         }
         stage('Push Image to DockerHub') {
             steps {
-                echo 'Pushing Docker image to DockerHub...'
+                scripts{
+                    echo 'Pushing Docker image to DockerHub...'
+                    docker.withRegistry('https://registry.hub.docker.com',"${DOCKER_HUB_CREDENTIALS_ID}"){
+                        dockerImage.push("latest")
+                    }
+                }
             }
         }
         stage('Install Kubectl & ArgoCD CLI') {
